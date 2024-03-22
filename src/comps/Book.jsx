@@ -6,7 +6,7 @@ const Book = () => {
 
     const [BookData, setBookData] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
-
+    const [UpdateBook, setUpdateBook] = useState({})
     const bookName = useRef()
     const bookTitle = useRef()
     const bookDesc = useRef()
@@ -48,11 +48,11 @@ const Book = () => {
     }, [])
 
     function alertfunc() {
-        Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success"
-        });
+        // Swal.fire({
+        //     title: "Good job!",
+        //     text: "You clicked the button!",
+        //     icon: "success"
+        // });
     }
 
     const deleteBook = (id, index) => {
@@ -62,6 +62,29 @@ const Book = () => {
             console.log(res.data);
         });
     };
+
+    const hendleUpdateBook = (e) => {
+        setUpdateBook({ ...UpdateBook, [e.target.name]: e.target.value })
+    }
+
+    const viewData = (ind) => {
+        let view = BookData[ind]
+        setUpdateBook(view)
+    }
+    const hendleUpdateSubmit = (e) => {
+        e.preventDefault()
+        // console.log(`http://localhost:3000/posts/${UpdateBook.id}`, "ups")
+        let id = UpdateBook.id
+        console.log(UpdateBook, "id")
+
+        axios.put(`http://localhost:3000/posts/${id}`, UpdateBook).then((res) => {
+            console.log(res.data)
+            // alertfunc()
+            getBook()
+        })
+    }
+
+    // console.log(UpdateBook, "up")
 
 
     return (
@@ -94,8 +117,6 @@ const Book = () => {
                     {
                         filteredBooks.map((val, ind) => {
                             return (
-
-
                                 <div class="max-w-sm bg-white border m-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={ind}>
                                     <a href="#">
                                         <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
@@ -107,13 +128,10 @@ const Book = () => {
                                         </a>
                                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{val.bookDesc}</p>
                                         <p class="mb-3 font-normal text-gray-700 font-semibold dark:text-gray-400">Price : {val.bookPrice}</p>
-                                        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            Read more
-                                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                            </svg>
-                                        </a>
-                                        <button onClick={() => deleteBook(val.id, ind)} className="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Deletet</button>
+                                        <button onClick={() => viewData(ind)} data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            view
+                                        </button>
+                                        <button onClick={() => deleteBook(val.id, ind)} className="ms-4 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Deletet</button>
                                     </div>
 
                                 </div>
@@ -123,6 +141,51 @@ const Book = () => {
                 </div>
 
             </div>
+
+
+
+            <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Toggle modal
+            </button>
+
+            <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Update form
+                            </h3>
+                            <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <div class="p-4 md:p-5">
+                            <form class="space-y-4" onClick={hendleUpdateSubmit}>
+                                <div class="mb-5">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">book Author</label>
+                                    <input type="text" value={UpdateBook.bookName} onChange={hendleUpdateBook} name='bookName' id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                </div>
+                                <div class="mb-5">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">book Title</label>
+                                    <input type="text" value={UpdateBook.bookTitle} onChange={hendleUpdateBook} name="bookTitle" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                </div><div class="mb-5">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">book Description</label>
+                                    <input type="text" value={UpdateBook.bookDesc} onChange={hendleUpdateBook} name="bookDesc" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                </div><div class="mb-5">
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">book Price</label>
+                                    <input type="number" value={UpdateBook.bookPrice} onChange={hendleUpdateBook} name="bookPrice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                </div>
+                                <button onClick={alertfunc} data-swal-template="#my-template" type='submit' class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     )
 }

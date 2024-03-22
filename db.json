@@ -5,7 +5,8 @@
       "bookTitle": "The Great Gatsby",
       "bookDesc": "Set in the summer of 1922, the novel follows the life of a young and mysterious millionaire, his extravagant lifestyle in Long Island, and his obsessive love for a beautiful former debutante",
       "bookPrice": "699",
-      "id": 4
+      "id": 4,
+      "upbookName": "F. Scott Fitzgerald7"
     },
     {
       "bookName": "Gustave Flaubert",
@@ -27,7 +28,7 @@
       "bookDesc": "Madame Bovary is a tragic novel about a young woman, Emma Bovary, who is married to a dull, but kind-hearted doctor. ",
       "bookPrice": "299",
       "id": 2
-    } 
+    }
   ],
   "comments": [],
   "profile": {

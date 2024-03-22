@@ -1,0 +1,42 @@
+{
+  "posts": [
+    {
+      "bookName": "Leo Tolstoy",
+      "bookTitle": "Anna Karenina ",
+      "bookDesc": "Set in 19th-century Russia, this novel revolves around the life of Anna Karenina, a high-society woman who, dissatisfied with her loveless marriage, embarks on a passionate affair with a charming officer named Count Vronsky.",
+      "bookPrice": "500",
+      "id": 1
+    },
+    {
+      "bookName": "Gustave Flaubert",
+      "bookTitle": "Madame Bovary",
+      "bookDesc": "Madame Bovary is a tragic novel about a young woman, Emma Bovary, who is married to a dull, but kind-hearted doctor. ",
+      "bookPrice": "299",
+      "id": 2
+    },
+    {
+      "bookName": "Leo Tolstoy",
+      "bookTitle": "War and Peace",
+      "bookDesc": "Set in the backdrop of the Napoleonic era, the novel presents a panorama of Russian society and its descent into the chaos of war. ",
+      "bookPrice": "399",
+      "id": 3
+    },
+    {
+      "bookName": "F. Scott Fitzgerald",
+      "bookTitle": "The Great Gatsby",
+      "bookDesc": "Set in the summer of 1922, the novel follows the life of a young and mysterious millionaire, his extravagant lifestyle in Long Island, and his obsessive love for a beautiful former debutante",
+      "bookPrice": "699",
+      "id": 4
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
